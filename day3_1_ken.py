@@ -11,18 +11,32 @@ try:
 except IOError:
     print("Something went wrong when attempting to read file.")
 
-#function to identify the tree in the slope down/right.
+#calculate the product of the list
+def multiplyList(myList):
+    total=1
+    for numbers in myList:
+        total=total*numbers
+    
+    return total
 
-def findTree():
+#function to identify the tree in the slope down/right.
+def findTree(move_right,row):
     count=0
-    move_right=3
     start_column=0
-    for lines in a2d_list:    
+    for lines in a2d_list[::row]:    
         if start_column > len(lines)-1:
             start_column=start_column-len(lines)
         if lines[start_column] == "#":
             count+=1
         start_column+=move_right
-    print(count)
+    return count
 
-findTree()
+
+treeList=[]
+treeList.append(findTree(1,1))
+treeList.append(findTree(3,1))
+treeList.append(findTree(5,1))
+treeList.append(findTree(7,1))
+treeList.append(findTree(1,2))
+
+print(treeList,"=>",multiplyList(treeList))
