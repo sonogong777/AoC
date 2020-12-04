@@ -5,10 +5,9 @@ import re
 
 key_list=['byr:','iyr:','eyr:','hgt:','hcl:','ecl:','pid:'] 
 
-validCounter=0          
-valid_passport=0
+valid_passport=0          
+valid_field=0
 keycount=0
-passport=[]
 
 #convert list to dictionary when they are in order
 def convertList(myList):
@@ -60,19 +59,20 @@ try:
 except IOError:
     print("Something went wrong when attempting to read file.")
     
+
 for data_item in pp_data:
     keycount=0
     for key in key_list:
         if key in data_item:
             keycount+=1
     if keycount >= 7:
-        valid_passport+=1
+        valid_field+=1
         temp_list=[]
         temp_list=re.split(r'[:,\s]',data_item)
         if len(temp_list)%2:
             temp_list.pop()
-        validCounter+=checkData(convertList(temp_list))
+        valid_passport+=checkData(convertList(temp_list)) #work with the dict while we have the small number of data set
         
     
-print('valid passport: ',validCounter)
-print('data with values',valid_passport)
+print('valid passport: ',valid_passport)
+print('data with values',valid_field)
